@@ -80,6 +80,45 @@
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
 </script>
 
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-right',
+        iconColor: 'white',
+        customClass: {
+            popup: 'colored-toast',
+        },
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+    })
+
+    @if (session('success'))
+        Toast.fire({
+            icon: 'success',
+            title: '{{ session('success') }}',
+        })
+    @elseif (session('error'))
+        Toast.fire({
+            icon: 'error',
+            title: '{{ session('error') }}',
+        })
+    @elseif (session('warning'))
+        Toast.fire({
+            icon: 'warning',
+            title: '{{ session('warning') }}',
+        })
+    @elseif (session('info'))
+        Toast.fire({
+            icon: 'info',
+            title: '{{ session('info') }}',
+        })
+    @endif
+</script>
+
 @yield('script')
 </body>
 
