@@ -19,4 +19,9 @@ class Product extends Model
     public function images(){
         return $this->hasMany(ProductImage::class)->where('deleted_at', null);
     }
+
+    // تعریف یک اسکوب
+    public function scopeSearch($query , $search){
+        $query->where('name' , 'LIKE' , '%' . trim($search) . '%');
+    }
 }

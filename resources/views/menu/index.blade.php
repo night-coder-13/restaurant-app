@@ -1,17 +1,36 @@
 @extends('layout.master')
 @section('title', 'Menu home')
 
+
+@section('script')
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('filter', () => ({
+                search : '',
+                currentUrl : '{{ url()->current() }}',
+                params : new URLSearchParams(),
+
+                filter(type , value){
+                    this.params.set(type , value);
+                    document.location.href = this.currentUrl +'?'+ this.params.toString()
+                }
+            }));
+
+        });
+    </script>
+@endsection
+
 @section('content')
 
     <section class="food_section layout_padding">
         <div class="container">
             <div class="row">
-                <div class="col-sm-12 col-lg-3">
+                <div x-data="filter" class="col-sm-12 col-lg-3">
                     <div>
                         <label class="form-label">جستجو</label>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="نام محصول ..." />
-                            <button class="input-group-text">
+                            <input type="text" x-model="search" class="form-control" placeholder="نام محصول ..." />
+                            <button @click="filter('search' , search)" class="input-group-text">
                                 <i class="bi bi-search"></i>
                             </button>
                         </div>
@@ -59,6 +78,15 @@
                 </div>
 
                 <div class="col-sm-12 col-lg-9">
+                    @if($products->isEmpty())
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        @if($request->has('search'))
+                            <h5>محصولی با عنوان "{{ $request->search }}" یافت نشد!</h5>
+                        @else
+                            <h5>محصولی یافت نشد!</h5>
+                        @endif
+                    </div>
+                    @endif
                     <div class="row gx-3">
                         @foreach ($products as $item)
                             <div class="col-sm-6 col-lg-4">
@@ -112,11 +140,10 @@
 
                     </div>
                     <div>
-                        {{ $products->links('layout.paginate') }}
+                        {{ $products->withQueryString()->links('layout.paginate') }}
                     </div>
                 </div>
             </div>
         </div>
     </section>
 @endsection
-
