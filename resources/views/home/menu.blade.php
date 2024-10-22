@@ -19,35 +19,35 @@
         <div class="filters-content">
             <div x-show="tab === 1">
                 <div class="row grid">
-                    @foreach ($burgers as $burger)
+                    @foreach ($burgers as $item)
                         <div class="col-sm-6 col-lg-4">
                             <div class="box">
                                 <div>
                                     <div class="img-box">
-                                        <img class="img-fluid" src="{{ ImageUrl($burger->primary_image) }}"
+                                        <img class="img-fluid" src="{{ ImageUrl($item->primary_image) }}"
                                             alt="">
                                     </div>
                                     <div class="detail-box">
                                         <h5>
-                                            <a href="{{ route('product.show' , ['product' => $burger->slug]) }}"></a>{{ $burger->name }}
+                                            <a href="{{ route('product.show' , ['product' => $item->slug]) }}">{{ $item->name }}</a>
                                         </h5>
                                         <p>
-                                            {{ Str::limit($burger->description, 85) }}
+                                            {{ Str::limit($item->description, 85) }}
                                         </p>
                                         <div class="options">
-                                            @if ($burger->is_sale)
+                                            @if ($item->is_sale)
                                                 <h6>
-                                                    <del>{{ number_format($burger->price) }}</del>
+                                                    <del>{{ number_format($item->price) }}</del>
                                                     <span>
-                                                        <span class="text-danger">({{ salePercent($burger->price , $burger->sale_price) }}%)</span>
-                                                        {{ number_format($burger->sale_price) }}
+                                                        <span class="text-danger">({{ salePercent($item->price , $item->sale_price) }}%)</span>
+                                                        {{ number_format($item->sale_price) }}
                                                         <span>تومان</span>
                                                     </span>
                                                 </h6>
                                             @else
                                                 <h6>
                                                     <span>
-                                                        {{ number_format($burger->price) }}
+                                                        {{ number_format($item->price) }}
                                                         <span>تومان</span>
                                                     </span>
                                                 </h6>
@@ -71,35 +71,35 @@
 
             <div x-show="tab === 2">
                 <div class="row grid">
-                    @foreach ($sanvich as $burger)
+                    @foreach ($sanvich as $item)
                         <div class="col-sm-6 col-lg-4">
                             <div class="box">
                                 <div>
                                     <div class="img-box">
-                                        <img class="img-fluid" src="{{ ImageUrl($burger->primary_image) }}"
+                                        <img class="img-fluid" src="{{ ImageUrl($item->primary_image) }}"
                                             alt="">
                                     </div>
                                     <div class="detail-box">
                                         <h5>
-                                            {{ $burger->name }}
+                                            <a href="{{ route('product.show' , ['product' => $item->slug]) }}">{{ $item->name }}</a>
                                         </h5>
                                         <p>
-                                            {{ Str::limit($burger->description, 85) }}
+                                            {{ Str::limit($item->description, 85) }}
                                         </p>
                                         <div class="options">
-                                            @if ($burger->is_sale)
+                                            @if ($item->is_sale)
                                                 <h6>
-                                                    <del>{{ number_format($burger->price) }}</del>
+                                                    <del>{{ number_format($item->price) }}</del>
                                                     <span>
                                                         <span class="text-danger">(16%)</span>
-                                                        {{ number_format($burger->sale_price) }}
+                                                        {{ number_format($item->sale_price) }}
                                                         <span>تومان</span>
                                                     </span>
                                                 </h6>
                                             @else
                                                 <h6>
                                                     <span>
-                                                        {{ number_format($burger->price) }}
+                                                        {{ number_format($item->price) }}
                                                         <span>تومان</span>
                                                     </span>
                                                 </h6>
@@ -124,35 +124,35 @@
 
             <div x-show="tab === 3">
                 <div class="row grid">
-                    @foreach ($pizza as $burger)
+                    @foreach ($pizza as $item)
                         <div class="col-sm-6 col-lg-4">
                             <div class="box">
                                 <div>
                                     <div class="img-box">
-                                        <img class="img-fluid" src="{{ ImageUrl($burger->primary_image) }}"
+                                        <img class="img-fluid" src="{{ ImageUrl($item->primary_image) }}"
                                             alt="">
                                     </div>
                                     <div class="detail-box">
                                         <h5>
-                                            {{ $burger->name }}
+                                            <a href="{{ route('product.show' , ['product' => $item->slug]) }}">{{ $item->name }}</a>
                                         </h5>
                                         <p>
-                                            {{ Str::limit($burger->description, 85) }}
+                                            {{ Str::limit($item->description, 85) }}
                                         </p>
                                         <div class="options">
-                                            @if ($burger->is_sale)
+                                            @if ($item->is_sale)
                                                 <h6>
-                                                    <del>{{ number_format($burger->price) }}</del>
+                                                    <del>{{ number_format($item->price) }}</del>
                                                     <span>
                                                         <span class="text-danger">(16%)</span>
-                                                        {{ number_format($burger->sale_price) }}
+                                                        {{ number_format($item->sale_price) }}
                                                         <span>تومان</span>
                                                     </span>
                                                 </h6>
                                             @else
                                                 <h6>
                                                     <span>
-                                                        {{ number_format($burger->price) }}
+                                                        {{ number_format($item->price) }}
                                                         <span>تومان</span>
                                                     </span>
                                                 </h6>

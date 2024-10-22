@@ -16,4 +16,7 @@ class Product extends Model
     public function getIsSaleAttribute(){
         return $this->quantity > 0 && $this->sale_price !== 0 && $this->sale_price !== null && $this->date_on_sale_from < Carbon::now() && $this->date_on_sale_to > Carbon::now();
     }
+    public function images(){
+        return $this->hasMany(ProductImage::class)->where('deleted_at', null);
+    }
 }
