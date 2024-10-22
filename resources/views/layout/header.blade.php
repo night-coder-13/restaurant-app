@@ -45,8 +45,8 @@
                                 <li class="nav-item {{ request()->is('/') ? 'active' : '' }}">
                                     <a class="nav-link" href="{{ route('home') }}">صفحه اصلی</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="menu.html">منو</a>
+                                <li class="nav-item {{ request()->is('menu*') ? 'active' : '' }}">
+                                    <a class="nav-link" href="{{ route('menu.index') }}">منو</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="about.html">درباره ما</a>
