@@ -62,7 +62,7 @@
                                         3
                                     </span>
                                 </a>
-                                <a href="login.html" class="btn-auth">
+                                <a href="{{ route('auth.loginform') }}" class="btn-auth">
                                     ورود
                                 </a>
                             </div>
