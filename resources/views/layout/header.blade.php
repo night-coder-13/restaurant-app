@@ -62,9 +62,16 @@
                                         3
                                     </span>
                                 </a>
-                                <a href="{{ route('auth.loginform') }}" class="btn-auth">
-                                    ورود
-                                </a>
+                                @auth
+                                    <a href="#" class="btn-auth">
+                                        پروفایل
+                                    </a>
+                                @endauth
+                                @guest
+                                    <a href="{{ route('auth.loginform') }}" class="btn-auth">
+                                        ورود
+                                    </a>
+                                @endguest
                             </div>
                         </div>
                     </nav>
