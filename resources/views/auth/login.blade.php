@@ -26,6 +26,7 @@
                     const data = await res.json();
                     this.loading = false;
                     if (res.ok) {
+                        console.log(data);
                         this.error = '';
                     } else {
                         this.error = data.message;
