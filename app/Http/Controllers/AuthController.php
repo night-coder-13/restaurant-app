@@ -69,4 +69,29 @@ class AuthController extends Controller
             return response()->json(['message' => $ex->getMessage()], 500);
         }
     }
+    public function resendOtp(Request $request)
+    {
+        $request->validate([
+            'login_token' => 'required'
+        ]);
+
+        try {
+
+            $user = User::where('login_token', $request->login_token)->firstOrFail();
+            $otpCode = mt_rand(111111, 999999);
+            $loginToken = Hash::make('reza$jetcom*qwsdcP');
+
+            $user->update([
+                'otp' => $otpCode,
+                'login_token' => $loginToken
+            ]);
+
+            // محل تابع ارسال پیام  ****************
+            
+
+            return response()->json(['login_token' => $loginToken], 200);
+        } catch (\Exception $ex) {
+            return response()->json(['errors' => $ex->getMessage()], 500);
+        }
+    }
 }

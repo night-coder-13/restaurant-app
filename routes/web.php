@@ -72,3 +72,4 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 Route::get('/login', [AuthController::class, 'loginform'])->name('auth.loginform');
 Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('/check-otp', [AuthController::class, 'checkOtp'])->name('auth.checkOtp');
+Route::post('/resend-otp', [AuthController::class, 'resendOtp'])->name('auth.resend');
