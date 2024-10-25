@@ -63,7 +63,7 @@
                                     </span>
                                 </a>
                                 @auth
-                                    <a href="#" class="btn-auth">
+                                    <a href="{{ route('profile.index') }}" class="btn-auth">
                                         پروفایل
                                     </a>
                                 @endauth

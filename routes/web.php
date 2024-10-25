@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -69,7 +70,15 @@ Route::get('/product/{product:slug}', [ProductController::class, 'show'])->name(
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
-Route::get('/login', [AuthController::class, 'loginform'])->name('auth.loginform');
-Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
-Route::post('/check-otp', [AuthController::class, 'checkOtp'])->name('auth.checkOtp');
-Route::post('/resend-otp', [AuthController::class, 'resendOtp'])->name('auth.resend');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'loginform'])->name('auth.loginform');
+    Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
+    Route::post('/check-otp', [AuthController::class, 'checkOtp'])->name('auth.checkOtp');
+    Route::post('/resend-otp', [AuthController::class, 'resendOtp'])->name('auth.resend');
+});
+Route::prefix('profile')->middleware('auth')->group(function () {
+    Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
+    Route::put('{user}', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::get('/address', [ProfileController::class, 'index'])->name('profile.index');
+});
