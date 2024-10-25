@@ -80,5 +80,8 @@ Route::prefix('profile')->middleware('auth')->group(function () {
     Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('{user}', [ProfileController::class, 'update'])->name('profile.update');
 
-    Route::get('/address', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/addresses', [ProfileController::class, 'address'])->name('address');
+    Route::get('/addresses/create', [ProfileController::class, 'addressCreate'])->name('address.create');
+    Route::post('/addresses', [ProfileController::class, 'store'])->name('address.store');
+     
 });
