@@ -30,14 +30,22 @@
                             @endif
                             <p>{{ Str::limit($product->description, 150) }}</p>
 
-                            <form x-data="{ quantity: 1 }" action="#" class="mt-5 d-flex">
-                                <button class="btn-add">افزودن به سبد خرید</button>
+                            <form x-data="{ quantity: {{ $isCart > 1 ? $isCart : 1 }} , cartBtn:'btn-add disable' }" action="{{ route('cart.add') }}" class="mt-5 d-flex">
+                                @if ($isCart)
+                                    <button :class="cartBtn">موجود در سبد خرید</button>
+                                @else
+                                    <button class="btn-add">افزودن به سبد خرید</button>
+                                @endif
+                                {{-- برای ایجاد سبد خرید --}}
+                                <input name="product_id" value="{{ $product->id }}" type="hidden">
+                                <input name="qty" :value="quantity" type="hidden">
+
                                 <div class="input-counter ms-4">
-                                    <span @click="quantity++" class="plus-btn">
+                                    <span @click="quantity < {{ $product->quantity }} && quantity++ ; cartBtn='btn-add'" class="plus-btn">
                                         +
                                     </span>
                                     <div class="input-number" x-text="quantity"></div>
-                                    <span @click="quantity > 1 && quantity--" class="minus-btn">
+                                    <span @click="quantity > 1 && quantity-- ; cartBtn='btn-add'" class="minus-btn">
                                         -
                                     </span>
                                 </div>
@@ -96,7 +104,8 @@
                                 </div>
                                 <div class="detail-box">
                                     <h5>
-                                        <a href="{{ route('product.show' , ['product' => $item->slug]) }}">{{ $item->name }}</a>
+                                        <a
+                                            href="{{ route('product.show', ['product' => $item->slug]) }}">{{ $item->name }}</a>
                                     </h5>
                                     <p>
                                         {{ Str::limit($item->description, 85) }}
@@ -121,10 +130,11 @@
                                             </h6>
                                         @endif
                                         <div class="d-flex">
-                                            <a class="me-2" href="">
+                                            <a class="me-2"
+                                                href="{{ route('cart.increment', ['product_id' => $item->id]) }}">
                                                 <i class="bi bi-cart-fill text-white fs-6"></i>
                                             </a>
-                                            <a href="{{ route('wishlist.add' , ['product_id' => $item->id]) }}">
+                                            <a href="{{ route('wishlist.add', ['product_id' => $item->id]) }}">
                                                 <i class="bi bi-heart-fill  text-white fs-6"></i>
                                             </a>
                                         </div>

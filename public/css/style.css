@@ -1103,6 +1103,16 @@ a:focus {
   transition: all 0.3s;
   border: none;
 }
+.single_page_section .btn-add.disable {
+  display: inline-block;
+  padding: 8px 30px;
+  background-color: #fccc66;
+  color: #333;
+  border-radius: 45px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border: none;
+}
 
 .cart_link span {
   background-color: #ffbe33;

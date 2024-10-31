@@ -12,9 +12,9 @@
             <li :class="tab === 3 ? 'active' : ''" @click="tab = 3">پیتزا</li>
         </ul>
         @php
-            $burgers = App\Models\Product::where('category_id', 2)->where('status', 1)->take(3)->get();
-            $sanvich = App\Models\Product::where('category_id', 3)->where('status', 1)->take(3)->get();
-            $pizza = App\Models\Product::where('category_id', 4)->where('status', 1)->take(3)->get();
+            $burgers = App\Models\Product::where('category_id', 2)->where('quantity' , '>' , 0)->where('status', 1)->take(3)->get();
+            $sanvich = App\Models\Product::where('category_id', 3)->where('quantity' , '>' , 0)->where('status', 1)->take(3)->get();
+            $pizza = App\Models\Product::where('category_id', 4)->where('quantity' , '>' , 0)->where('status', 1)->take(3)->get();
         @endphp
         <div class="filters-content">
             <div x-show="tab === 1">
@@ -53,7 +53,7 @@
                                                 </h6>
                                             @endif
                                             <div class="d-flex">
-                                                <a class="me-2" href="">
+                                                <a class="me-2" href="{{ route('cart.increment' , ['product_id' => $item->id]) }}">
                                                     <i class="bi bi-cart-fill text-white fs-6"></i>
                                                 </a>
                                                 <a href="{{ route('wishlist.add' , ['product_id' => $item->id]) }}">
@@ -105,7 +105,7 @@
                                                 </h6>
                                             @endif
                                             <div class="d-flex">
-                                                <a class="me-2" href="">
+                                                <a class="me-2" href="{{ route('cart.increment' , ['product_id' => $item->id]) }}">
                                                     <i class="bi bi-cart-fill text-white fs-6"></i>
                                                 </a>
                                                 <a href="">
@@ -158,7 +158,7 @@
                                                 </h6>
                                             @endif
                                             <div class="d-flex">
-                                                <a class="me-2" href="">
+                                                <a class="me-2" href="{{ route('cart.increment' , ['product_id' => $item->id]) }}">
                                                     <i class="bi bi-cart-fill text-white fs-6"></i>
                                                 </a>
                                                 <a href="">
@@ -178,7 +178,7 @@
         </div>
 
         <div class="btn-box">
-            <a href="">
+            <a href="{{ route('menu.index') }}">
                 مشاهده بیشتر
             </a>
         </div>

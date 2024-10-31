@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProductController;
@@ -41,5 +42,14 @@ Route::prefix('profile')->middleware('auth')->group(function () {
     Route::get('/addresses/{address}/delete', [ProfileController::class, 'addressDelete'])->name('address.delete');
     Route::get('/remove-wishlist/{wishlist}', [ProfileController::class, 'wishlistRemove'])->name('wishlist.remove');
 });
-
 Route::get('/add-to-wishlist', [ProfileController::class, 'wishlistAdd'])->name('wishlist.add');
+
+Route::prefix('cart')->middleware('auth')->group(function () {
+    Route::get('/', [CartController::class, 'index'])->name('cart.index');
+    Route::get('/increment', [CartController::class, 'increment'])->name('cart.increment');
+    Route::get('/decrement', [CartController::class, 'decrement'])->name('cart.decrement');
+    Route::get('/add', [CartController::class, 'add'])->name('cart.add');
+    Route::get('/remove', [CartController::class, 'remove'])->name('cart.remove');
+    Route::get('/clear', [CartController::class, 'clear'])->name('cart.clear');
+
+});
