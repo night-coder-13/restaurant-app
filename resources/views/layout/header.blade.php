@@ -68,7 +68,7 @@
                                     </a>
                                 @endauth
                                 @guest
-                                    <a href="{{ route('auth.loginform') }}" class="btn-auth">
+                                    <a href="{{ route('login') }}" class="btn-auth">
                                         ورود
                                     </a>
                                 @endguest

@@ -19,11 +19,14 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 Route::middleware('guest')->group(function () {
-    Route::get('/login', [AuthController::class, 'loginform'])->name('auth.loginform');
+    Route::get('/login', [AuthController::class, 'loginform'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
     Route::post('/check-otp', [AuthController::class, 'checkOtp'])->name('auth.checkOtp');
     Route::post('/resend-otp', [AuthController::class, 'resendOtp'])->name('auth.resend');
 });
+
+Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout')->middleware('auth');
+
 Route::prefix('profile')->middleware('auth')->group(function () {
     Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('{user}', [ProfileController::class, 'update'])->name('profile.update');

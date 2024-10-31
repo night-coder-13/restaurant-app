@@ -17,7 +17,7 @@
             <a href="{{ route('wishlist') }}">لیست علاقه مندی ها</a>
         </li>
         <li class="list-group-item">
-            <a href="#">خروج</a>
+            <a href="{{ route('auth.logout') }}">خروج</a>
         </li>
     </ul>
 </div>
