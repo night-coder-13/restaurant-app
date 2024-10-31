@@ -14,7 +14,7 @@
             <a href="./transactions.html">تراکنش ها</a>
         </li>
         <li class="list-group-item">
-            <a href="#">لیست علاقه مندی ها</a>
+            <a href="{{ route('wishlist') }}">لیست علاقه مندی ها</a>
         </li>
         <li class="list-group-item">
             <a href="#">خروج</a>

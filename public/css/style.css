@@ -1046,7 +1046,6 @@ a:focus {
 .btn {
   display: inline-block;
   padding: 8px 30px;
-  background-color: #ffbe33;
   color: #ffffff;
   border-radius: 45px;
   -webkit-transition: all 0.3s;

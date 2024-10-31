@@ -28,10 +28,15 @@ Route::prefix('profile')->middleware('auth')->group(function () {
     Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('{user}', [ProfileController::class, 'update'])->name('profile.update');
 
+    Route::get('/wishlist', [ProfileController::class, 'wishlist'])->name('wishlist');
+    
     Route::get('/addresses', [ProfileController::class, 'address'])->name('address');
     Route::get('/addresses/create', [ProfileController::class, 'addressCreate'])->name('address.create');
     Route::post('/addresses', [ProfileController::class, 'addressStore'])->name('address.store');
     Route::get('/addresses/{address}/edit', [ProfileController::class, 'addressEdit'])->name('address.edit');
     Route::put('/addresses/{address}/update', [ProfileController::class, 'addressUpdate'])->name('address.update');
-     
+    Route::get('/addresses/{address}/delete', [ProfileController::class, 'addressDelete'])->name('address.delete');
+    Route::get('/remove-wishlist/{wishlist}', [ProfileController::class, 'wishlistRemove'])->name('wishlist.remove');
 });
+
+Route::get('/add-to-wishlist', [ProfileController::class, 'wishlistAdd'])->name('wishlist.add');

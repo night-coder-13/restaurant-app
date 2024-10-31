@@ -38,6 +38,7 @@
                 </div>
                 <div class="mt-4">
                     <a href="{{ route('address.edit' , ['address' => $address->id]) }}" class="btn btn-primary">ویرایش</a>
+                    <a href="{{ route('address.delete' , ['address' => $address->id]) }}" class="btn btn-danger">حذف</a>
                 </div>
             </div>
             <hr />

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
+use App\Models\Product;
 use App\Models\Province;
 use App\Models\User;
 use App\Models\UserAddress;
+use App\Models\Wishlist;
 use Faker\Provider\ar_EG\Address;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -73,9 +75,9 @@ class ProfileController extends Controller
     {
         $provinces = Province::all();
         $cities = City::all();
-        return view('profile.addresses.edit', compact('provinces', 'cities' , 'address'));
+        return view('profile.addresses.edit', compact('provinces', 'cities', 'address'));
     }
-    public function addressUpdate(Request $request , UserAddress $address)
+    public function addressUpdate(Request $request, UserAddress $address)
     {
         $request->validate([
             'title' => 'required|string',
@@ -96,5 +98,43 @@ class ProfileController extends Controller
         ]);
 
         return redirect()->route('address')->with('success', 'آدرس شما با موفقیت ویرایش شد');
+    }
+    public function addressDelete(UserAddress $address)
+    {
+        $address->delete();
+        return redirect()->route('address')->with('info', 'آدرس شما با موفقیت حذف شد');
+    }
+
+    // wishlist *start*
+    public function wishlist()
+    {
+        $wishlists = Auth::user()->wishlists;
+        return view('profile.wishlist', compact('wishlists'));
+    }
+
+    public function wishlistAdd(Request $request)
+    {
+        $request->validate([
+            'product_id' => 'required|integer|exists:products,id'
+        ]);
+        if (!Auth::check()) {
+            return redirect()->back()->with('warning', 'لطفا ابتدا وارد شوید');
+        }
+        $wishlist = Wishlist::where('user_id', Auth::user()->id)->where('product_id', $request->product_id)->first();
+        if ($wishlist) {
+            return redirect()->back()->with('info', 'محصول "' . $wishlist->product->name . '" در لیست علاقه‌مندی ها موجود است');
+        } else {
+            Wishlist::create([
+                'user_id' => Auth::user()->id,
+                'product_id' => $request->product_id,
+            ]);
+            return redirect()->back()->with('success', 'محصول به لیست علاقه‌مندی ها اضافه شد');
+        }
+        return redirect()->route('home');
+    }
+    public function wishlistRemove(Wishlist $wishlist)
+    {
+        $wishlist->delete();
+        return redirect()->back()->with('info', 'محصول از لیست علاقه‌مندی ها حذف شد');
     }
 }

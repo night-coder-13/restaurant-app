@@ -124,7 +124,7 @@
                                             <a class="me-2" href="">
                                                 <i class="bi bi-cart-fill text-white fs-6"></i>
                                             </a>
-                                            <a href="">
+                                            <a href="{{ route('wishlist.add' , ['product_id' => $item->id]) }}">
                                                 <i class="bi bi-heart-fill  text-white fs-6"></i>
                                             </a>
                                         </div>
