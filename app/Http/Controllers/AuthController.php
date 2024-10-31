@@ -39,7 +39,6 @@ class AuthController extends Controller
                 ]);
             }
 
-            // // $user->mobile = '09902774517';
             // $user->notify(new SendOtpToUser());
 
             return response()->json(['message' => 'Done !', 'login_token' => $logintoken], 200);

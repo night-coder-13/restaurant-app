@@ -21,9 +21,9 @@ public function toGhasedaksms($notifiable): GhasedaksmsVerifyLookUp
    {
     $message = new GhasedaksmsVerifyLookUp();
     $message->setSendDate(Carbon::now());
-    $message->setReceptors([new ReceptorDTO('09902774517', '15478')]);
+    $message->setReceptors([new ReceptorDTO('09902774517' , '30005088')]);
     $message->setTemplateName('Ghasedak');
-    $message->setInputs([new InputDTO('Code', '15477')]);
+    $message->setInputs([new InputDTO('Code', $notifiable->otp)]);
     return $message;
    }
 }

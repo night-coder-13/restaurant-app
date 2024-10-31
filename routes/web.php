@@ -7,62 +7,10 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-
-
 Route::get('/', function () {
     return view('home.index');
 })->name('home');
-// Route::get('/otp', function () {
-//     // $user = new \App\Models\User();
-//     // $user->mobile = '09902774517';
-//     // $user->otp = '215487';
-//     // $user->notify(new \App\Notifications\SendOtpToUser());
 
-
-
-
-
-
-
-//     // try{
-//     //     $sender = "10004346";
-//     //     $message = "خدمات پیام کوتاه کاوه نگار";
-//     //     $receptor = array("09361234567","09191234567");
-//     //     $result = Kavenegar::Send($sender,$receptor,$message);
-//     //     if($result){
-//     //         foreach($result as $r){
-//     //             echo "messageid = $r->messageid";
-//     //             echo "message = $r->message";
-//     //             echo "status = $r->status";
-//     //             echo "statustext = $r->statustext";
-//     //             echo "sender = $r->sender";
-//     //             echo "receptor = $r->receptor";
-//     //             echo "date = $r->date";
-//     //             echo "cost = $r->cost";
-//     //         }       
-//     //     }
-//     // }
-//     // catch(\Kavenegar\Exceptions\ApiException $e){
-//     //     // در صورتی که خروجی وب سرویس 200 نباشد این خطا رخ می دهد
-//     //     echo $e->errorMessage();
-//     // }
-//     // catch(\Kavenegar\Exceptions\HttpException $e){
-//     //     // در زمانی که مشکلی در برقرای ارتباط با وب سرویس وجود داشته باشد این خطا رخ می دهد
-//     //     echo $e->errorMessage();
-//     // }
-
-
-
-
-
-
-
-
-
-
-
-
-// })->name('home');
 
 Route::get('/menu', [MenuController::class, 'index'])->name('menu.index');
 Route::get('/product/{product:slug}', [ProductController::class, 'show'])->name('product.show');
@@ -82,6 +30,8 @@ Route::prefix('profile')->middleware('auth')->group(function () {
 
     Route::get('/addresses', [ProfileController::class, 'address'])->name('address');
     Route::get('/addresses/create', [ProfileController::class, 'addressCreate'])->name('address.create');
-    Route::post('/addresses', [ProfileController::class, 'store'])->name('address.store');
+    Route::post('/addresses', [ProfileController::class, 'addressStore'])->name('address.store');
+    Route::get('/addresses/{address}/edit', [ProfileController::class, 'addressEdit'])->name('address.edit');
+    Route::put('/addresses/{address}/update', [ProfileController::class, 'addressUpdate'])->name('address.update');
      
 });
