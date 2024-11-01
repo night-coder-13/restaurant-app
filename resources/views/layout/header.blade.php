@@ -30,7 +30,7 @@
             <header class="header_section">
                 <div class="container">
                     <nav class="navbar navbar-expand-lg custom_nav-container">
-                        <a class="navbar-brand" href="index.html">
+                        <a class="navbar-brand" href="{{ route('home') }}">
                             <img src="{{ asset('images/Logo/logo.png') }}" width="160px" alt="">
                         </a>
 
@@ -59,7 +59,7 @@
                                 <a class="cart_link position-relative" href="{{ route('cart.index') }}">
                                     <i class="bi bi-cart-fill text-white fs-5"></i>
                                     <span class="position-absolute top-0 translate-middle badge rounded-pill">
-                                    {{ count(session()->get('cart')) >= 1 ? count(session()->get('cart')) : 0 }}
+                                    {{ count(session()->get('cart' , [])) >= 1 ? count(session()->get('cart' , [])) : 0 }}
                                     </span>
                                 </a>
                                 @auth
