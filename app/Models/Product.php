@@ -11,7 +11,8 @@ class Product extends Model
     use HasFactory;
 
     protected $table = "products";
-    protected $appends = ['is_sale'];
+    protected $fillable = ['quantity'];
+    protected $appends = ['is_sale' ];
 
     public function getIsSaleAttribute(){
         return $this->quantity > 0 && $this->sale_price !== 0 && $this->sale_price !== null && $this->date_on_sale_from < Carbon::now() && $this->date_on_sale_to > Carbon::now();

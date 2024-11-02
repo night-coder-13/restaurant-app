@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +42,8 @@ Route::prefix('profile')->middleware('auth')->group(function () {
     Route::put('/addresses/{address}/update', [ProfileController::class, 'addressUpdate'])->name('address.update');
     Route::get('/addresses/{address}/delete', [ProfileController::class, 'addressDelete'])->name('address.delete');
     Route::get('/remove-wishlist/{wishlist}', [ProfileController::class, 'wishlistRemove'])->name('wishlist.remove');
+    
+    Route::get('/orders', [ProfileController::class, 'orders'])->name('profile.order');
 });
 Route::get('/add-to-wishlist', [ProfileController::class, 'wishlistAdd'])->name('wishlist.add');
 
@@ -53,4 +56,11 @@ Route::prefix('cart')->middleware('auth')->group(function () {
     Route::get('/clear', [CartController::class, 'clear'])->name('cart.clear');
     Route::get('/check-coupon', [CartController::class, 'checkCoupon'])->name('cart.checkCoupon');
 
+});
+
+
+Route::prefix('payment')->middleware('auth')->group(function () {
+    Route::post('/send', [PaymentController::class, 'send'])->name('payment.send');
+    Route::get('/verify', [PaymentController::class, 'verify'])->name('payment.verify');
+    Route::get('/status', [PaymentController::class, 'status'])->name('payment.status');
 });

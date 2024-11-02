@@ -16,7 +16,7 @@
         </div>
     @else
         <section class="single_page_section layout_padding">
-            <div class="container">
+            <div x-data="{ addressId : null }" class="container">
                 <div class="row">
                     <div class="col-md-10 offset-md-1">
                         <div class="row gy-5">
@@ -100,7 +100,8 @@
                             <div class="col-12 col-md-6">
                                 <form action="{{ route('cart.checkCoupon') }}">
                                     <div class="input-group mb-3">
-                                        <input name="code" type="text" class="form-control" placeholder="کد تخفیف" value="{{ request()->session()->has('coupon') ? session()->get('coupon')['code'] : '' }}" />
+                                        <input name="code" type="text" class="form-control" placeholder="کد تخفیف"
+                                            value="{{ request()->session()->has('coupon') ? session()->get('coupon')['code'] : '' }}" />
                                         <button type="submit" class="btn btn-dark" id="basic-addon2">اعمال کد
                                             تخفیف</button>
                                     </div>
@@ -113,16 +114,26 @@
                             </div>
 
                             <div class="col-12 col-md-6 d-flex justify-content-end align-items-baseline">
-                                <div>
-                                    انتخاب آدرس
-                                </div>
-                                <select style="width: 200px;" class="form-select ms-3" aria-label="Default select example">
-                                    <option selected>منزل</option>
-                                    <option value="1">محل کار</option>
-                                </select>
-                                <a href="profile.html" class="btn btn-primary mx-2">
-                                    ایجاد آدرس
-                                </a>
+                                @if ($addresses->isEmpty())
+                                    <a href="{{ route('profile.address.create') }}" class="btn btn-primary">
+                                        ایجاد آدرس
+                                    </a>
+                                @else
+                                    <div>
+                                        انتخاب آدرس
+                                    </div>
+                                    <select x-model="addressId" style="width: 200px;" class="form-select ms-3">
+                                        <option value="">انتخاب آدرس</option>
+                                        @foreach ($addresses as $address)
+                                            <option value="{{ $address->id }}">{{ $address->title }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="form-text text-danger">
+                                        @error('address_id')
+                                            {{ $message }}
+                                        @enderror
+                                    </div>
+                                @endif
                             </div>
                         </div>
 
@@ -182,7 +193,14 @@
                                                 </div>
                                             </li>
                                         </ul>
-                                        <button class="user_option btn-auth mt-4">پرداخت</button>
+
+                                        <form action="{{ route('payment.send') }}" method="POST">
+                                            @csrf
+                                            <input name="coupon_code" value="{{ $coupnPrice != 0 ? $couponCode : null }}"
+                                                type="hidden">
+                                            <input name="address_id" :value="addressId" type="hidden">
+                                            <button type="submit" class="user_option btn-auth mt-4">پرداخت</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

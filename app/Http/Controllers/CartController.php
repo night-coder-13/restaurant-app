@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coupon;
+use App\Models\Order;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
     public function index(Request $request)
     {
+        $addresses = Auth::user()->addresses;
         $cart = $request->session()->get('cart');
         $cart_total_price = 0;
         if (isset($cart)) {
@@ -19,7 +22,7 @@ class CartController extends Controller
                 $cart_total_price += $price * $item['qty'];
             }
         }
-        return view('cart.index', compact('cart', 'cart_total_price'));
+        return view('cart.index', compact('cart', 'cart_total_price', 'addresses'));
     }
     public function increment(Request $request)
     {
@@ -147,6 +150,10 @@ class CartController extends Controller
 
         if ($coupon == null) {
             return redirect()->route('cart.index')->withErrors(['code' => 'کد تخفیف وارد شده وجود ندارد']);
+        }
+
+        if (Order::where('user_id', Auth::id())->where('coupon_id', $coupon->id)->where('payment_status', 1)->exists()) {
+            return redirect()->route('cart.index')->withErrors(['code' => 'شما قبلا از این کد تخفیف استفاده کرده اید']);
         }
 
         $request->session()->put('coupon', ['code' => $coupon->code, 'percent' => $coupon->percentage]);
