@@ -164,6 +164,8 @@ return [
         'slug'              => 'اسلاگ',
         'quantity'          => 'تعداد',
         'primary_image'     => 'تصویر اصلی',
+        'address_id'           => 'آدرس',
+        'otp'           => 'کد ورود',
     ],
 
 ];
