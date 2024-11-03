@@ -19,6 +19,18 @@ class ProfileController extends Controller
         $user = Auth::user();
         return view('profile.index', compact('user'));
     }
+    public function orders()
+    {
+        $orders = Auth::user()->orders()->with('address')->paginate(4);
+
+        return view('profile.order', compact('orders'));
+    }
+
+    public function transactions()
+    {
+        $transactions = Auth::user()->transactions()->orderByDesc('created_at')->paginate(4);
+        return view('profile.transactions', compact('transactions'));
+    }
 
     public function update(Request $request, User $user)
     {
